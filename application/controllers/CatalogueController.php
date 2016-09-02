@@ -10,7 +10,7 @@ class CatalogueController extends Zend_Controller_Action {
     
     
     public function productAction() {
-        
+        $this->view->dontShowPrice = false;
     }
     
     
