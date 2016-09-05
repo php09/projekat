@@ -3,3 +3,27 @@ $sitemapPage = $this->sitemapPage;
 $this->headTitle($sitemapPage['title']);
 $this->headMeta()->appendName('description', $sitemapPage['description']);
 ?>
+<main>
+
+
+
+    
+<div class="container">
+
+            <article>
+            <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">News</a></li>
+            </ol>
+        </article>
+    
+    <div class="header-a">
+        <?php echo $sitemapPage['title'];?>
+    </div>
+    
+    <p>
+    <?php echo $sitemapPage['body'];?>
+    </p>
+    
+</div>
+</main>

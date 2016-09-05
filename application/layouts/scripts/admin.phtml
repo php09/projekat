@@ -95,8 +95,11 @@ $user = Zend_Auth::getInstance()->getIdentity();
 						<li>
                             <a href="<?php echo $this->url(array('controller' => 'admin_filemanager'), 'default', true);?>"><i class="fa fa-files-o fa-fw"></i> Filemanager</a>
                         </li>
-						<li>
+                        <li>
                             <a href="<?php echo $this->url(array('controller' => 'admin_users'), 'default', true);?>"><i class="fa fa-user fa-fw"></i> Users</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo $this->url(array('controller' => 'admin_news'), 'default', true);?>"><i class="fa fa-newspaper-o fa-fw"></i> News</a>
                         </li>
                     </ul>
                 </div>

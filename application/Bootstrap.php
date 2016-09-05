@@ -27,16 +27,33 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                             'title' => 'News Page',
                             "subtypes" => array()
                         ),
-                        "ProductPage" => array(
-                            "title" => "Product Page",
-                            "subtypes" => array()
+                        "CategoryPage" => array(
+                            "title" => "Category Page",
+                            "subtypes" => array('StaticPage' => 0, 'CategoryPage' => 0)
                         ),
+                        'SupportPage' => array(
+                            'title' => 'Support page',
+                            'subtypes' => array('StaticPage' => 0)
+                        ),
+                        'CataloguePage' => array(
+                            'title' => 'Catalogue page',
+                            'subtypes' => array('StaticPage' => 0, 'CategoryPage' => 0)
+                        ),
+                        'AboutusPage' => array(
+                            'title' => 'About us page',
+                            'subtypes' => array('StaticPage' => 0)
+                        )
                         
 		);
 		
 		$rootSitemapPageTypes = array(
 			'StaticPage' => 0,
-			'PhotoGalleriesPage' => 1
+			'PhotoGalleriesPage' => 1,
+                        'CategoryPage' => 1,
+                        'NewsPage' => 0,
+                        'SupportPage' => 0,
+                        'CataloguePage' => 1,
+                        'AboutusPage' => 1
 		);
 		
 		Zend_Registry::set('sitemapPageTypes', $sitemapPageTypes);
@@ -49,7 +66,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$sitmapPagesMap = Application_Model_DbTable_CmsSitemapPages::getSitemapPagesMap();
 		
 		foreach ($sitmapPagesMap as $sitemapPageId => $sitemapPageMap) {
-			
+                    
 			if ($sitemapPageMap['type'] == 'StaticPage') {
 				
 				$router->addRoute('static-page-route-' . $sitemapPageId, new Zend_Controller_Router_Route_Static(
@@ -61,7 +78,31 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 					)
 				));
 			}
+                        
+                        if ($sitemapPageMap['type'] == 'SupportPage') {
+				
+				$router->addRoute('static-page-route-' . $sitemapPageId, new Zend_Controller_Router_Route_Static(
+					$sitemapPageMap['url'],
+					array(
+						'controller' => 'staticpage',
+						'action' => 'index',
+						'sitemap_page_id' => $sitemapPageId
+					)
+				));
+			}
 			
+                        if ($sitemapPageMap['type'] == 'AboutusPage') {
+				
+				$router->addRoute('static-page-route-' . $sitemapPageId, new Zend_Controller_Router_Route_Static(
+					$sitemapPageMap['url'],
+					array(
+						'controller' => 'info',
+						'action' => 'aboutus',
+						'sitemap_page_id' => $sitemapPageId
+					)
+				));
+			}
+                        
 			
 			if ($sitemapPageMap['type'] == 'PhotoGalleriesPage') {
 				
