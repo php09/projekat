@@ -23,6 +23,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 					
 				)
 			),
+                        "NewsPage" => array(
+                            'title' => 'News Page',
+                            "subtypes" => array()
+                        ),
+                        "ProductPage" => array(
+                            "title" => "Product Page",
+                            "subtypes" => array()
+                        ),
+                        
 		);
 		
 		$rootSitemapPageTypes = array(

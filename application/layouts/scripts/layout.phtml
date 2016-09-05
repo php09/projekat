@@ -339,15 +339,19 @@
         //hack da bi se ispostovala pripadnost ovih elemenata u okviru main taga kao i njihov redosled
         
         if( $(".getPrice").length ) {
-            $(".getPrice").appendTo( $("main") );
+            if( $(".getPrice").length >= 2 ) {
+                $(".getPrice").eq(1).appendTo( $("main") );
+            } else {
+                $(".getPrice").appendTo( $("main") );
+            }
         }
         
         if( $(".information").length ) {
            $(".information").appendTo( $("main") );
         }
         
-        if( $(".googleMap").length ) {
-            $(".googleMap").detach().insertAfter(".getPrice");
+        if( $(".googleMap").length && !$(".location")) {
+                $(".googleMap").detach().insertAfter(".getPrice");
         }
     </script>
 </body>
