@@ -1,7 +1,7 @@
-<?php
+<?php 
 $sitemapPage = $this->sitemapPage;
-$this->headTitle($sitemapPage['title']);
-$this->headMeta()->appendName('description', $sitemapPage['description']);
+$this->headTitle($this->escape($sitemapPage['title']));    
+$this->headMeta()->appendName('description', $this->escape($sitemapPage['description']));
 ?>
 <main>
 
@@ -10,15 +10,17 @@ $this->headMeta()->appendName('description', $sitemapPage['description']);
     
 <div class="container">
 
-            <article>
+        <article>
             <ol class="breadcrumb">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">News</a></li>
+                <li><a href="<?php echo $this->baseUrl('/');?>">Home</a></li>
+                <?php foreach($this->breadcrumb AS $b) { ?>
+                <li><a href=""><?php echo $b['short_title'];?></a></li>
+                <?php } ?>
             </ol>
         </article>
     
     <div class="header-a">
-        <?php echo $sitemapPage['title'];?>
+        <?php echo $this->escape($sitemapPage['title']);?>
     </div>
     
     <p>

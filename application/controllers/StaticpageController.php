@@ -32,5 +32,9 @@ class StaticpageController extends Zend_Controller_Action
 		}
 		
 		$this->view->sitemapPage = $sitemapPage;
+                
+                
+        $sitemapPageBreadcrumbs = $cmsSitemapPageDbTable->getSitemapPageBreadcrumbs($sitemapPageId);
+        $this->view->breadcrumb = $sitemapPageBreadcrumbs;
 	}
 }

@@ -25,7 +25,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 			),
                         "NewsPage" => array(
                             'title' => 'News Page',
-                            "subtypes" => array()
+                            "subtypes" => array('StaticPage' => 0, 'NewsPage' => 0)
                         ),
                         "CategoryPage" => array(
                             "title" => "Category Page",
@@ -42,7 +42,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                         'AboutusPage' => array(
                             'title' => 'About us page',
                             'subtypes' => array('StaticPage' => 0)
+                        ),
+                        'ContactUsPage' => array(
+                            'title' => 'Contact us',
+                            'subtypes' => array()
                         )
+                    
                         
 		);
 		
@@ -53,7 +58,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                         'NewsPage' => 0,
                         'SupportPage' => 0,
                         'CataloguePage' => 1,
-                        'AboutusPage' => 1
+                        'AboutusPage' => 1,
+                        'ContactUsPage' => 1
 		);
 		
 		Zend_Registry::set('sitemapPageTypes', $sitemapPageTypes);
@@ -84,13 +90,25 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 				$router->addRoute('static-page-route-' . $sitemapPageId, new Zend_Controller_Router_Route_Static(
 					$sitemapPageMap['url'],
 					array(
-						'controller' => 'staticpage',
-						'action' => 'index',
+						'controller' => 'info',
+						'action' => 'support',
 						'sitemap_page_id' => $sitemapPageId
 					)
 				));
 			}
-			
+                        
+                        if ($sitemapPageMap['type'] == 'ContactUsPage') {
+				
+				$router->addRoute('static-page-route-' . $sitemapPageId, new Zend_Controller_Router_Route_Static(
+					$sitemapPageMap['url'],
+					array(
+						'controller' => 'info',
+						'action' => 'contactus',
+						'sitemap_page_id' => $sitemapPageId
+					)
+				));
+			}
+                        
                         if ($sitemapPageMap['type'] == 'AboutusPage') {
 				
 				$router->addRoute('static-page-route-' . $sitemapPageId, new Zend_Controller_Router_Route_Static(

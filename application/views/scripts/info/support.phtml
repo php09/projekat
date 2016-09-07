@@ -1,0 +1,52 @@
+<?php $this->headTitle($this->sitemapPage['title']); ?>
+<main>
+
+    <section class="support">
+        <div class="container">
+            <div class="row">
+
+                
+                        
+                 
+                
+                <div class="container">
+				<!-- About -->
+				<div class="row">
+					<div class="col-md-8">
+						<!-- About company -->
+                                                <div class="block">
+                                                    
+                                                    <?php echo $this->sitemapPage['body']; ?>
+                                                                                                        
+                                                </div>
+						<!-- The team -->
+						
+						<!-- Quotes -->
+						
+					</div>
+					<!-- sidebar -->
+					<div class="col-md-4 sidebar sidebar-right">
+						<div class="inner">
+                                                    <?php if( !empty($this->sitemapPageChildLinks)) { ?>
+							<div class="block">
+								<h3 class="block-title sub-title">
+									<span>About Menu</span>
+								</h3>
+                                                            <!--<ul class="nav nav-list secondary-nav">--><ul class=''>
+                                                                    <?php foreach($this->sitemapPageChildLinks as $childLink) { $url = $this->sitemapPageUrl($childLink['id']); ?>
+									<li>
+										<a href="<?php echo $url ;?>"><i class="fa fa-chevron-right"></i> <?php echo $this->escape($childLink['short_title']);?></a>
+									</li>
+                                                                    <?php } ?>
+								</ul>;
+							</div>
+                                                    <?php } ?>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+            </div>
+
+        </div>
+    </section>

@@ -1,6 +1,6 @@
 <?php
 
-class Application_Model_DbTable_CmsNews {
+class Application_Model_DbTable_CmsNews extends Zend_Db_Table_Abstract {
     
     protected $_name = "cms_news";
 

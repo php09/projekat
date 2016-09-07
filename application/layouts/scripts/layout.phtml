@@ -220,19 +220,29 @@
         <?php } ?>
 
         <footer>
+            <section class="contact">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p><img alt="" src="/front/img/mail_icon.png"><a href="mailto:exemple@yahoo.co.uk"> email@email.com</a></p>
+
+                    </div>
+                    <div class="col-md-4">
+                        <p><img alt="" src="/front/img/skype_icon.png"><a href="#">gear.psdtemplate</a></p>
+                    </div>
+                    <div class="col-md-4">
+                        <p><img alt="" src="/front/img/phone_icon_1.png">1-800-987-0654 321</p>
+                    </div>
+                </div>
+            </div>
+        </section>
             <div class="container">
                 <article class="navigation-bar">
                     <nav class="navbar navbar-inverse">
 
                         <div>
                             <ul class="nav navbar-nav">
-                                <li class="active"><a href="#">Home</a></li>
-                                <li><a href="#">Catalog</a></li>
-                                <li><a href="#">About Us</a></li>
-                                <li><a href="#">Payment & Delivery</a></li>
-                                <li><a href="#">News</a></li>
-                                <li><a href="#">Support</a></li>
-                                <li><a href="#">Contact Us</a></li>
+                                <?php echo $this->topMenuHtml();?>
                             </ul>
                             <ul class="nav navbar-nav navbar-right socialNetwork">
                                 <li>
@@ -339,21 +349,21 @@
         
         //hack da bi se ispostovala pripadnost ovih elemenata u okviru main taga kao i njihov redosled
         
-        if( $(".getPrice").length ) {
-            if( $(".getPrice").length >= 2 ) {
-                $(".getPrice").eq(1).appendTo( $("main") );
-            } else {
-                $(".getPrice").appendTo( $("main") );
-            }
-        }
-        
-        if( $(".information").length ) {
-           $(".information").appendTo( $("main") );
-        }
-        
-        if( $(".googleMap").length && !$(".location")) {
-                $(".googleMap").detach().insertAfter(".getPrice");
-        }
+//        if( $(".getPrice").length ) {
+//            if( $(".getPrice").length >= 2 ) {
+//                $(".getPrice").eq(1).appendTo( $("main") );
+//            } else {
+//                $(".getPrice").appendTo( $("main") );
+//            }
+//        }
+//        
+//        if( $(".information").length ) {
+//           $(".information").appendTo( $("main") );
+//        }
+//        
+//        if( $(".googleMap").length && !$(".location")) {
+//                $(".googleMap").detach().insertAfter(".getPrice");
+//        }
     </script>
 </body>
 </html>
