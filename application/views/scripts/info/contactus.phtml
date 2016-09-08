@@ -1,14 +1,17 @@
 <body>
-    <section class="bredcrumbs breadcrumbsPage">
-        <div class="container">
-            <article>
-                <ol class="breadcrumb">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                </ol>
-            </article>
-        </div>
-    </section>
+<section class="bredcrumbs">
+
+    <div class="container">
+        <article>
+                        <ol class="breadcrumb">
+                            <li><a href="<?php echo $this->baseUrl('/'); ?>">Home</a></li>
+                            <?php foreach ($this->breadcrumb AS $b) { ?>
+                                <li><a href="<?php echo $this->sitemapPageUrl($b['id']); ?>"><?php echo $b['short_title']; ?></a></li>
+                            <?php } ?>
+                        </ol>
+        </article>
+    </div>
+</section>
     <main class="contactUs">
         <section class="googleMap">
             <div class="mapWrapper">

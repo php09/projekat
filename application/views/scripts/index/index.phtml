@@ -2,25 +2,35 @@
     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="6000" data-pause="hover">
         <!-- Indicators -->
         <ol class="carousel-indicators">
-            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+            <?php for($i = 0; $i < count($this->indexSlides); $i++) { ?>
+            <li 
+                data-target="#carousel-example-generic" 
+                data-slide-to="<?php echo $i;?>" <?php echo $i == 0 ? "class=\"active\"":'';?>>
+            </li>
+            <?php } ?>
         </ol>
 
         <!-- Wrapper for slides -->
+        
         <div class="carousel-inner" role="listbox">
-            <div class="item active">
-                <img class="img-responsive" src="front/img/index_slider.jpg" alt=""/>
+            <?php $i=0; foreach ($this->indexSlides as $indexSlide) { ?>
+            <div class="item <?php echo $i == 0 ? "active" : "" ; $i++;?>">
+                <img height="360" width="640" src="<?php echo $this->indexSlideImgUrl($indexSlide);?>" alt="<?php echo $this->escape($indexSlide['title']);?>" class="animated fadeInDownBig" />
+                    
                 <div class="carousel-caption">
                     <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
-                    <h2>Gear</h2><br>
-                    <p>automotive psd template</p>
+                    <h2><?php echo $this->escape($indexSlide['title']);?></h2><br>
+                    <p><?php echo $this->escape($indexSlide['description']);?></p>
+                    <?php if ($indexSlide['link_type'] != 'NoLink') {?>
+                        <a href="<?php echo $this->indexSlideLinkUrl($indexSlide);?>" class="btn btn-lg btn-primary"><?php echo $this->escape($indexSlide['link_label']);?></a>
+                        <?php } ?>
                 </div>
                 <div class="carousel-caption-right">
                     <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
                 </div>
             </div>
-            <div class="item">
+            <?php }?>
+<!--            <div class="item">
                 <img class="img-responsive" src="front/img/index_slider1.jpg" alt=""/>
                 <div class="carousel-caption">
                     <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
@@ -42,7 +52,7 @@
                 <div class="carousel-caption-right">
                     <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
                 </div>
-            </div>
+            </div>-->
         </div>
 
         <!-- Controls -->

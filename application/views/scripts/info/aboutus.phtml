@@ -1,13 +1,13 @@
 <?php 
-$this->headTitle($this->sitemapPage["short_title"]);
+$this->headTitle($this->sitemapPage["short_title"]); $this instanceof Zend_View;
 ?>
 	<section class="bredcrumbs">
 
 	    <div class="container">
 		<article>
 		    <ol class="breadcrumb">
-			<li><a href="#">Home</a></li>
-			<li><a href="#">About Us</a></li>
+			<li><a href="<?php echo $this->baseUrl('/');?>">Home</a></li>
+                        <li><a href="<?php echo $this->url(array('controller' => 'info', 'action' => 'aboutus'));?>">About Us</a></li>
 		    </ol>
 		</article>
 	    </div>

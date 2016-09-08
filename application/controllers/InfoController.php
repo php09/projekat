@@ -56,6 +56,9 @@ class InfoController extends Zend_Controller_Action{
         
         $this->view->sitemapPage = $sitemapPage[0];
         
+        $sitemapPageBreadcrumbs = $sitemapTable->getSitemapPageBreadcrumbs($id);
+        $this->view->breadcrumb = $sitemapPageBreadcrumbs;
+        
     }
     
     public function supportAction() {
@@ -91,7 +94,8 @@ class InfoController extends Zend_Controller_Action{
         
         $this->view->sitemapPageChildLinks = $sitemapPageChildLinks;
         
-        
+        $sitemapPageBreadcrumbs = $sitemapTable->getSitemapPageBreadcrumbs($id);
+        $this->view->breadcrumb = $sitemapPageBreadcrumbs;
         
         
     }

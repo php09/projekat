@@ -33,7 +33,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                         ),
                         'SupportPage' => array(
                             'title' => 'Support page',
-                            'subtypes' => array('StaticPage' => 0)
+                            'subtypes' => array('StaticPage' => 0, 'SupportPage' => 0)
                         ),
                         'CataloguePage' => array(
                             'title' => 'Catalogue page',
@@ -56,7 +56,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 			'PhotoGalleriesPage' => 1,
                         'CategoryPage' => 1,
                         'NewsPage' => 0,
-                        'SupportPage' => 0,
+                        'SupportPage' => 1,
                         'CataloguePage' => 1,
                         'AboutusPage' => 1,
                         'ContactUsPage' => 1

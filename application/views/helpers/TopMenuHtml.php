@@ -20,25 +20,22 @@ class Zend_View_Helper_TopMenuHtml extends Zend_View_Helper_Abstract
             $this->view->placeholder('topMenuHtml')->captureStart(); ?>
 
                 <ul class="nav navbar-nav" id="main-menu">
+                    
                     <li>
                         <a href="/"><?php echo $this->view->escape('Home') ;?></a>
                     </li>
-                    <?php 
-                    foreach( $topMenuSitemapPages as $sitemapPage) {
-                        ?>
+                    
+                    <?php foreach( $topMenuSitemapPages as $sitemapPage) { ?>
                     
                     <li>
                         <a href="<?php echo $this->view->sitemapPageUrl($sitemapPage['id']);?>"><?php echo $this->view->escape($sitemapPage['short_title']) ;?></a>
                     </li>
-                    <?php 
-                        } 
-                        ?>
+                    
+                    <?php } ?>
                     
                     <li>
-<!--                        <a href="<?php // echo $this->view->baseUrl('/admin_session');?>"><i class='fa fa-user'></i> Login</a>-->
                         <a href="<?php echo $this->view->url(array('controller' =>'session', 'action' => 'login'), 'default', true);?>"><i class='fa fa-user'></i> Login</a>
                     </li>
-                    
                     
                 </ul>
 
