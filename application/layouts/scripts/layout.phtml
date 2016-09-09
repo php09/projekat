@@ -15,7 +15,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
         <?php echo $this->headTitle('CUBES Computer SHOP')->setSeparator(' | '); ?>
-        <?php echo $this->headMeta()->appendName("description", "Hello world"); ?>
+        <?php // echo $this->headMeta()->appendName("description", "Hello world"); ?>
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- @todo: fill with your company info or remove -->
@@ -42,6 +42,19 @@
         <script src="<?php echo $this->baseUrl('/front/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js'); ?>"></script>
 
         <?php echo $this->headScript(); ?>
+        
+        <style>
+            #main-menu > li > ul {
+                background-color: #080808;
+            }
+            #main-menu a {
+                color:white;
+            }
+            .dropdown-menu > li > a:hover {
+                background-color: #222222;
+            }
+        </style>
+        
     </head>
 
     <!-- ======== @Region: body ======== -->

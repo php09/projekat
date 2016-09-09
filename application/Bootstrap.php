@@ -73,6 +73,19 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		
 		foreach ($sitmapPagesMap as $sitemapPageId => $sitemapPageMap) {
                     
+                        if ($sitemapPageMap['type'] == 'CategoryPage') {
+				
+				$router->addRoute('static-page-route-' . $sitemapPageId, new Zend_Controller_Router_Route_Static(
+					$sitemapPageMap['url'],
+					array(
+						'controller' => 'staticpage',
+						'action' => 'index',
+						'sitemap_page_id' => $sitemapPageId
+					)
+				));
+			}
+                    
+                    
 			if ($sitemapPageMap['type'] == 'StaticPage') {
 				
 				$router->addRoute('static-page-route-' . $sitemapPageId, new Zend_Controller_Router_Route_Static(

@@ -1,5 +1,6 @@
 <?php
 $this->headTitle($this->sitemapPage['title']);
+$this->headMeta()->appendName("description", $this->sitemapPage['description']);
 ?>
 <main>
 <section class="bredcrumbs">
@@ -23,12 +24,14 @@ $this->headTitle($this->sitemapPage['title']);
                 <div class="container">
                     <!-- About -->
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="<?php echo !empty($this->sitemapPageChildLinks) ? "col-md-8" : "col-md-12" ?>">
                             <!-- About company -->
                             <div class="block">
-
-                                <?php echo $this->sitemapPage['body']; ?>
-
+                                <section class='contactUs'>
+                                    <div class='block'>
+                                        <?php echo $this->sitemapPage['body']; ?>
+                                    </div>
+                                </section>
                             </div>
                             <!-- The team -->
 

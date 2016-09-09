@@ -27,10 +27,43 @@ class Zend_View_Helper_TopMenuHtml extends Zend_View_Helper_Abstract
                     
                     <?php foreach( $topMenuSitemapPages as $sitemapPage) { ?>
                     
+                    <?php
+                    $children = $cmsSitemapDbTable->search( 
+                    array(
+                        'filters' => array('parent_id' => $sitemapPage['id'], 'status' => Application_Model_DbTable_CmsSitemapPages::STATUS_ENABLED), 
+                        'orders' => array('order_number' => 'ASC') 
+                        ) 
+                    );
+                    ?>
+                    
+                    <?php if( !empty($children) ) { ?>
+                    
+                    <li class="dropdown">
+                        <a 
+                            href="<?php echo $this->view->sitemapPageUrl($sitemapPage['id']);?>" 
+                            class="dropdown-toggle" data-toggle="dropdown"
+                            >
+                                <?php echo $this->view->escape($sitemapPage['short_title']) ;?> <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="<?php echo $this->view->sitemapPageUrl($sitemapPage['id']);?>"><?php echo $this->view->escape($sitemapPage['short_title']) ;?></a>
+                            </li>
+                            
+                            <li class='divider'></li>
+                            
+                            <?php foreach($children AS $child) { ?>
+                                <li><a href="<?php echo $this->view->sitemapPageUrl($child['id']);?>"><?php echo $this->view->escape($child['short_title']);?></a></li>
+                            <?php } ?>
+                        </ul>
+                    </li>
+                    
+                    <?php } else { ?>
+                    
                     <li>
                         <a href="<?php echo $this->view->sitemapPageUrl($sitemapPage['id']);?>"><?php echo $this->view->escape($sitemapPage['short_title']) ;?></a>
                     </li>
-                    
+                    <?php } ?>
                     <?php } ?>
                     
                     <li>

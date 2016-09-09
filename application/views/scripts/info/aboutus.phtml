@@ -1,19 +1,30 @@
-<?php 
-$this->headTitle($this->sitemapPage["short_title"]); $this instanceof Zend_View;
+<?php
+$this->headTitle($this->sitemapPage["short_title"]);
+$this->headMeta()->appendName("description", $this->sitemapPage['description']);
+$this instanceof Zend_View;
 ?>
-	<section class="bredcrumbs">
+<main>
+    <section class="bredcrumbs">
 
-	    <div class="container">
-		<article>
-		    <ol class="breadcrumb">
-			<li><a href="<?php echo $this->baseUrl('/');?>">Home</a></li>
-                        <li><a href="<?php echo $this->url(array('controller' => 'info', 'action' => 'aboutus'));?>">About Us</a></li>
-		    </ol>
-		</article>
-	    </div>
-	</section>
-<?php echo $this->sitemapPage['body'];?>
+        <div class="container">
+            <article>
+                <ol class="breadcrumb">
+                    <li><a href="<?php echo $this->baseUrl('/'); ?>">Home</a></li>
+                    <li><a href="<?php echo $this->url(array('controller' => 'info', 'action' => 'aboutus')); ?>">About Us</a></li>
+                </ol>
+            </article>
+        </div>
+    </section>
 
-        <main>
 
+    <section class="aboutUs">
+        <div class="container">
+            <div class='col-md-12'>
+                <div class='block'>
+                    <?php echo $this->sitemapPage['body']; ?>
+                </div>
+            </div
+        </div>
+    </section>
+</main>
 
