@@ -383,7 +383,7 @@ $this->inlineScript()->appendFile($this->baseUrl('/admin/bower_components/datata
 		var target = $(this).is('#delete-warning-dialog') ? $(this) : $(this).closest('#delete-warning-dialog');
 
 		$.ajax({
-			url: '<?php echo $this->url(array('controller' => 'admin_users', 'action' => 'enable'), 'default', true); ?>',
+			url: '<?php echo $this->url(array('controller' => 'admin_users', 'action' => 'delete'), 'default', true); ?>',
 			method: 'post',
 			data: {
 				task: 'delete',

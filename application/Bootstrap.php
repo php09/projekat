@@ -77,8 +77,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 				
 				$router->addRoute('static-page-route-' . $sitemapPageId, new Zend_Controller_Router_Route_Static(
 					$sitemapPageMap['url'],
-					array(
-						'controller' => 'staticpage',
+					array(	
+					'controller' => 'staticpage',
 						'action' => 'index',
 						'sitemap_page_id' => $sitemapPageId
 					)

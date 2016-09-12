@@ -21,7 +21,7 @@ class Zend_View_Helper_FooterSitemap extends Zend_View_Helper_Abstract {
 
         $this->view->placeholder('topMenuHtml')->captureStart();
         ?>
-<section class="information">
+        <section class="information">
             <div class="container">
                 <div class="row">
 
@@ -43,23 +43,31 @@ class Zend_View_Helper_FooterSitemap extends Zend_View_Helper_Abstract {
                         <div class="col-sm-8 col-md-3">
                             <h3><?php echo $this->view->escape($menuPage['short_title']); ?></h3>
 
-
-            <?php foreach ($menuChildSitemapPages AS $child) { ?> 
+                            <?php if (empty($menuChildSitemapPages)) { ?>
                                 <p>
-                                    <a href="<?php echo $this->view->sitemapPageUrl($child['id']); ?>">
-                <?php echo $child['short_title']; ?>
+                                    <a href="<?php echo $this->view->sitemapPageUrl($menuPage['id']); ?>">
+                                        <?php echo $menuPage['short_title']; ?>
                                     </a>
                                 </p>
-            <?php } ?>
-                        </div>
-                        <?php } ?>
+                            <?php } else { ?>
 
+                                <?php foreach ($menuChildSitemapPages AS $child) { ?> 
+                                    <p>
+                                        <a href="<?php echo $this->view->sitemapPageUrl($child['id']); ?>">
+                                            <?php echo $child['short_title']; ?>
+                                        </a>
+                                    </p>
+                                <?php } ?>
+                            <?php } ?>
+                        </div>
+
+                    <?php } ?>
 
 
                 </div>
             </div>
-        
-</section>
+
+        </section>
 
         <?php
         $this->view->placeholder('topMenuHtml')->captureEnd();
