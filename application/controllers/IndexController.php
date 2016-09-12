@@ -22,6 +22,22 @@ class IndexController extends Zend_Controller_Action
 		));
 		
 		$this->view->indexSlides = $indexSlides;
+                
+                $sitemapTable = new Application_Model_DbTable_CmsSitemapPages();
+                
+                $sitemapPage = $sitemapTable->search(
+                        array(
+                            'filters' => array(
+                                'type' => 'ContactusPage',
+                                'status' => Application_Model_DbTable_CmsSitemapPages::STATUS_ENABLED
+                        )));
+
+                if(!$sitemapPage) {
+                    throw new Zend_Controller_Router_Exception('About us page was not found.', 404);
+                }
+                
+                $this->view->sitemapPage = $sitemapPage[0];
+
     }
 }
 
