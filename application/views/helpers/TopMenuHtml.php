@@ -21,9 +21,9 @@ class Zend_View_Helper_TopMenuHtml extends Zend_View_Helper_Abstract
 
                 <ul class="nav navbar-nav" id="main-menu">
                     
-                    <li>
+<!--                    <li>
                         <a href="/"><?php echo $this->view->escape('Home') ;?></a>
-                    </li>
+                    </li>-->
                     
                     <?php foreach( $topMenuSitemapPages as $sitemapPage) { ?>
                     
@@ -66,9 +66,9 @@ class Zend_View_Helper_TopMenuHtml extends Zend_View_Helper_Abstract
                     <?php } ?>
                     <?php } ?>
                     
-                    <li>
+<!--                    <li>
                         <a href="<?php echo $this->view->url(array('controller' =>'session', 'action' => 'login'), 'default', true);?>"><i class='fa fa-user'></i> Login</a>
-                    </li>
+                    </li>-->
                     
                 </ul>
 

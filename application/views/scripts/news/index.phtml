@@ -16,7 +16,7 @@
             <h3>NEWS</h3>
             <div class="row">
 
-
+                <?php foreach($this->news as $individualNews) { ?>
                 <div class="col-sm-6 col-md-4">
                     <figure class="newsItem">
                         <div class="imgNews">
@@ -29,16 +29,15 @@
                         </div>
 
                         <figcaption>
-                            <a href="#"><h4>READY FOR TRACK DAY</h4></a>
+                            <a href="#"><h4><?php echo $individualNews['title'];?></h4></a>
                             <button type="button" class="btn items">25 April 2015</button>
                             <button type="button" class="btn items">Add comment</button>
-                            <p>Ea ullum liber aperiri mi, impetus ate philosophia ad duo, quem regione ne ius.
-                                Vis quis lobortis dissentias ex, in du aft philosophia, malis necessitatibus no mei. 
-                                Volumus sensibus qui ex, eum duis doming ad.</p>
+                            <p><?php echo preg_replace('^[<img>]*[<\/img>]', '', $individualNews['body']);?></p>
 
                         </figcaption>
                     </figure>
                 </div>
+                <?php } ?>
                 <div class="col-sm-6 col-md-4">
                     <figure class="newsItem">
                         <div class="imgNews">

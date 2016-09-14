@@ -15,7 +15,7 @@
         <div class="carousel-inner" role="listbox">
             <?php $i=0; foreach ($this->indexSlides as $indexSlide) { ?>
             <div class="item <?php echo $i == 0 ? "active" : "" ; $i++;?>">
-                <img height="360" width="640" src="<?php echo $this->indexSlideImgUrl($indexSlide);?>" alt="<?php echo $this->escape($indexSlide['title']);?>" class="animated fadeInDownBig" />
+                <img src="<?php echo $this->indexSlideImgUrl($indexSlide);?>" alt="<?php echo $this->escape($indexSlide['title']);?>" class="animated fadeInDownBig" />
                     
                 <div class="carousel-caption">
                     <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
