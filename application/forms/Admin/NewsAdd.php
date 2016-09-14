@@ -25,6 +25,24 @@ class Application_Form_Admin_NewsAdd extends Zend_Form{
         $category->addMultiOptions( array("test1" => 'Test') );   //TODO: fill with existing categories
         $this->addElement($category);
         
+        $newsPhoto = new Zend_Form_Element_File('news_main_photo');
+		$newsPhoto->addValidator('Count', true, 1)
+			->addValidator('MimeType', true, array('image/jpeg', 'image/gif', 'image/png'))
+			->addValidator('ImageSize', false, array(
+				'minwidth' => 600,
+				'minheight' => 400,
+				'maxwidth' => 2000,
+				'maxheight' => 2000
+			))
+			->addValidator('Size', false, array(
+				'max' => '10MB'
+			))
+			// disable move file to destination when calling method getValues()
+			->setValueDisabled(true)
+			->setRequired(false);
+		
+		$this->addElement($newsPhoto);
+        
     }
     
 }

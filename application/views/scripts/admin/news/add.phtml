@@ -55,7 +55,7 @@ $form->setElementDecorators(array('ViewHelper'));
                             </div>
                         </div>
 
-                        
+
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="tags">Tags</label>  
@@ -105,8 +105,26 @@ $form->setElementDecorators(array('ViewHelper'));
                                 <?php } ?>
                             </div>
                         </div>
-
                         
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="news_main_photo">Photo</label>
+                            <div class="col-md-4">
+
+                                <input type="file" name="news_main_photo" id="news_main_photo" class="form-control input-md">
+                            </div>
+
+                            <div class="col-md-4">
+                                <?php if ($form->getElement('news_main_photo')->hasErrors()) { ?>
+                                    <div class="has-error">
+                                        <?php foreach ($form->getElement('news_main_photo')->getMessages() as $message) { ?>
+                                            <p class="help-block"><?php echo $this->escape($message); ?></p>
+                                        <?php } ?>
+                                    </div>
+                                <?php } ?>
+                            </div><!--
+                        </div>-->
+
+
                         <!-- Textarea input-->
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="title">Page Body</label>  
@@ -123,6 +141,8 @@ $form->setElementDecorators(array('ViewHelper'));
                                 <?php } ?>
                             </div>
                         </div>
+
+                        
                         <div class="form-group">
                             <div class="col-md-2"></div>
                             <div class="col-md-8" style="text-align: center;">

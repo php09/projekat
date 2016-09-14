@@ -85,6 +85,7 @@ class Admin_NewsController extends Zend_Controller_Action {
                 //Insertujemo novi zapis u tabelu
                 //insert news returns ID of the new news
                 
+                $cmsNewsTable->insertNews($formData);
 
                 // do actual task
                 //save to database etc

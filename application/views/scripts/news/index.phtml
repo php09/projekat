@@ -1,4 +1,6 @@
-
+<?php 
+date_default_timezone_set('GMT');
+?>
 <section class="bredcrumbs">
 
     <div class="container">
@@ -17,6 +19,7 @@
             <div class="row">
 
                 <?php foreach($this->news as $individualNews) { ?>
+                
                 <div class="col-sm-6 col-md-4">
                     <figure class="newsItem">
                         <div class="imgNews">
@@ -30,15 +33,17 @@
 
                         <figcaption>
                             <a href="#"><h4><?php echo $individualNews['title'];?></h4></a>
-                            <button type="button" class="btn items">25 April 2015</button>
+                            <button type="button" class="btn items"><?php echo date('d F Y' , strtotime($individualNews['date_posted'])) ;?></button>
                             <button type="button" class="btn items">Add comment</button>
-                            <p><?php echo preg_replace('^[<img>]*[<\/img>]', '', $individualNews['body']);?></p>
+                            <p><?php echo substr(strip_tags($individualNews['body']), 0, 100) . "...";?></p>
 
                         </figcaption>
                     </figure>
                 </div>
+                
                 <?php } ?>
-                <div class="col-sm-6 col-md-4">
+                
+<!--                <div class="col-sm-6 col-md-4">
                     <figure class="newsItem">
                         <div class="imgNews">
                             <img class="img-responsive" src="/front/img/news_car1.jpg" alt=""/>
@@ -135,7 +140,7 @@
                             <p>Ea ullum liber aperiri mi, impetus ate philosophia ad duo, quem</p>
                         </figcaption>
                     </figure>
-                </div>
+                </div>-->
 
 
             </div>
