@@ -70,7 +70,7 @@ class Admin_NewsController extends Zend_Controller_Action {
             try {
                 //check form is valid
                 if (!$form->isValid($request->getPost())) {
-                    throw new Application_Model_Exception_InvalidInput('Invalid data was sent for new sitemapPage');
+                    throw new Application_Model_Exception_InvalidInput('Invalid data was sent for new news');
                 }
 
                 //get form data
@@ -80,10 +80,10 @@ class Admin_NewsController extends Zend_Controller_Action {
 
                 $formData['author_id'] = $user['id'];
 
-                //remove key sitemap_page_photo form form data because there is no column 'sitemap_page_photo' in cms_sitemapPages table
+                //remove key sitemap_page_photo form form data because there is no column 'sitemap_page_photo' in cms_newss table
                 //unset($formData['sitemap_page_photo']);
                 //Insertujemo novi zapis u tabelu
-                //insert sitemapPage returns ID of the new sitemapPage
+                //insert news returns ID of the new news
                 
 
                 // do actual task
@@ -108,8 +108,78 @@ class Admin_NewsController extends Zend_Controller_Action {
     }
 
     public function editAction() {
-        
-    }
+            
+            $request = $this->getRequest();
+            
+            $id = (int) $request->getParam("id");
+            
+            if($id <= 0) {
+                //prekida se izvrsavanje i prikazuje se page not found
+                throw new Zend_Controller_Router_Exception('Invalid news id: ' . $id , 404);
+            }
+            
+            $cmsNewsTable = new Application_Model_DbTable_CmsNews();
+            
+            $newsPage = $cmsNewsTable->getNewsById($id);
+            
+            if( empty($newsPage) ) {
+                throw new Zend_Controller_Router_Exception('No news is found with id: ' . $id , 404);
+            }
+            
+            $this->view->news = $newsPage;
+            
+            $flashMessenger = $this->getHelper('FlashMessenger');
+		
+		$systemMessages = array(
+			'success' => $flashMessenger->getMessages('success'),
+			'errors' => $flashMessenger->getMessages('errors'),
+		);
+		
+		$form = new Application_Form_Admin_NewsEdit();
+               
+		//default form data
+		$form->populate( $newsPage );
+
+		if ($request->isPost() && $request->getPost('task') === 'update') { 
+                    
+			try {
+
+				//check form is valid
+				if (!$form->isValid($request->getPost())) { 
+					throw new Application_Model_Exception_InvalidInput('Invalid data was sent for news');
+				}
+                                //ukoliko je validna forma
+				//get form data
+				$formData = $form->getValues(); //filtrirani i validirani podaci
+                                
+                                //radimo update postojeceg zapisa u tabeli
+                                $cmsNewsTable->updateNews( $newsPage['id'], $formData);
+                                
+
+				// do actual task
+				//save to database etc
+				
+				
+				//set system message
+				$flashMessenger->addMessage('News has been updated', 'success');
+
+				//redirect to same or another page po nasoj ideji bacamo na stranicu gde su svi newsi
+				$redirector = $this->getHelper('Redirector');
+				$redirector->setExit(true)
+					->gotoRoute(array(
+						'controller' => 'admin_news',
+						'action' => 'index'
+                                                            ), 'default', true);
+			} catch (Application_Model_Exception_InvalidInput $ex) {
+				$systemMessages['errors'][] = $ex->getMessage();
+			}
+		}
+
+                $this->view->systemMessages = $systemMessages;
+		$this->view->form = $form;
+                
+            
+        }
 
     public function deleteAction() {
 

@@ -25,27 +25,27 @@ class Application_Model_DbTable_CmsNews extends Zend_Db_Table_Abstract {
     /**
      * 
      * @param int $id
-     * @param array $user Associative array with keys as column names and values as column new values
+     * @param array $news Associative array with keys as column names and values as column new values
      */
-    public function updateNews($id, $user) {
-        if( isset($user['id']) ) {
-            unset($user['id']);
+    public function updateNews($id, $news) {
+        if( isset($news['id']) ) {
+            unset($news['id']);
         }
-        $this->update($user, 'id = ' . $id);
+        $this->update($news, 'id = ' . $id);
     }
         
     /**
      * 
-     * @param Array $user Associative array with keys as column names and values as column new values
-     * @return int id of new user   
+     * @param Array $news Associative array with keys as column names and values as column new values
+     * @return int id of new news   
      */
-    public function insertNews($user) {
-        return $this->insert($user);
+    public function insertNews($news) {
+        return $this->insert($news);
     }
     
     /**
      * 
-     * @param int $id Id of the user to enable
+     * @param int $id Id of the news to enable
      */
         public function enableNews($id) {
         $this->update(array('status' => self::STATUS_ENABLED), 'id = ' . $id);
@@ -75,7 +75,7 @@ class Application_Model_DbTable_CmsNews extends Zend_Db_Table_Abstract {
      *                  "status" => 1,
      *                  "id= => array(3, 8 ,11),
      *                  "orders" => array(
-     *                                  "username" => ASC, 
+     *                                  "newsname" => ASC, 
      *                                  "lastname" => DESC,
      *                                   ),
      *                  "limit" => 50, //limit result set to 50 rows
