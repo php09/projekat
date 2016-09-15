@@ -9,7 +9,7 @@ class IndexController extends Zend_Controller_Action
     }
 
     public function indexAction()
-    {
+    {//test
 		$cmsIndexSlidesDbTable = new Application_Model_DbTable_CmsIndexSlides();
 		
 		$indexSlides = $cmsIndexSlidesDbTable->search(array(
