@@ -80,12 +80,48 @@ class Admin_NewsController extends Zend_Controller_Action {
 
                 $formData['author_id'] = $user['id'];
 
+                unset($formData['news_main_photo']);
+
                 //remove key sitemap_page_photo form form data because there is no column 'sitemap_page_photo' in cms_newss table
                 //unset($formData['sitemap_page_photo']);
                 //Insertujemo novi zapis u tabelu
                 //insert news returns ID of the new news
-                
-                $cmsNewsTable->insertNews($formData);
+
+                $newsId = $cmsNewsTable->insertNews($formData);
+
+                if ($form->getElement('news_main_photo')->isUploaded()) {
+                    //photo is uploaded
+
+                    $fileInfos = $form->getElement('news_main_photo')->getFileInfo('news_main_photo');
+                    $fileInfo = $fileInfos['news_main_photo'];
+
+
+                    try {
+                        //open uploaded photo in temporary directory
+                        $newsPhoto = Intervention\Image\ImageManagerStatic::make($fileInfo['tmp_name']);
+
+                        //						$newsPhoto->fit(600, 400);
+                        $newsPhoto->fit(600, 400);
+
+                        $newsPhoto->save(PUBLIC_PATH . '/uploads/news-main-photos/' . $newsId . '.jpg');
+                    } catch (Exception $ex) {
+
+                        $flashMessenger->addMessage('News photo has been saved but error occured during image processing', 'errors');
+
+                        //redirect to same or another page
+                        $redirector = $this->getHelper('Redirector');
+                        $redirector->setExit(true)
+                                ->gotoRoute(array(
+                                    'controller' => 'admin_news',
+                                    'action' => 'edit',
+                                    'id' => $newsId
+                                        ), 'default', true);
+                    }
+                    //$fileInfo = $_FILES['index_slide_photo'];
+                }
+
+
+
 
                 // do actual task
                 //save to database etc
@@ -109,78 +145,102 @@ class Admin_NewsController extends Zend_Controller_Action {
     }
 
     public function editAction() {
-            
-            $request = $this->getRequest();
-            
-            $id = (int) $request->getParam("id");
-            
-            if($id <= 0) {
-                //prekida se izvrsavanje i prikazuje se page not found
-                throw new Zend_Controller_Router_Exception('Invalid news id: ' . $id , 404);
-            }
-            
-            $cmsNewsTable = new Application_Model_DbTable_CmsNews();
-            
-            $newsPage = $cmsNewsTable->getNewsById($id);
-            
-            if( empty($newsPage) ) {
-                throw new Zend_Controller_Router_Exception('No news is found with id: ' . $id , 404);
-            }
-            
-            $this->view->news = $newsPage;
-            
-            $flashMessenger = $this->getHelper('FlashMessenger');
-		
-		$systemMessages = array(
-			'success' => $flashMessenger->getMessages('success'),
-			'errors' => $flashMessenger->getMessages('errors'),
-		);
-		
-		$form = new Application_Form_Admin_NewsEdit();
-               
-		//default form data
-		$form->populate( $newsPage );
 
-		if ($request->isPost() && $request->getPost('task') === 'update') { 
-                    
-			try {
+        $request = $this->getRequest();
 
-				//check form is valid
-				if (!$form->isValid($request->getPost())) { 
-					throw new Application_Model_Exception_InvalidInput('Invalid data was sent for news');
-				}
-                                //ukoliko je validna forma
-				//get form data
-				$formData = $form->getValues(); //filtrirani i validirani podaci
-                                
-                                //radimo update postojeceg zapisa u tabeli
-                                $cmsNewsTable->updateNews( $newsPage['id'], $formData);
-                                
+        $id = (int) $request->getParam("id");
 
-				// do actual task
-				//save to database etc
-				
-				
-				//set system message
-				$flashMessenger->addMessage('News has been updated', 'success');
-
-				//redirect to same or another page po nasoj ideji bacamo na stranicu gde su svi newsi
-				$redirector = $this->getHelper('Redirector');
-				$redirector->setExit(true)
-					->gotoRoute(array(
-						'controller' => 'admin_news',
-						'action' => 'index'
-                                                            ), 'default', true);
-			} catch (Application_Model_Exception_InvalidInput $ex) {
-				$systemMessages['errors'][] = $ex->getMessage();
-			}
-		}
-
-                $this->view->systemMessages = $systemMessages;
-		$this->view->form = $form;
-                
-            
+        if ($id <= 0) {
+            //prekida se izvrsavanje i prikazuje se page not found
+            throw new Zend_Controller_Router_Exception('Invalid news id: ' . $id, 404);
         }
+
+        $cmsNewsTable = new Application_Model_DbTable_CmsNews();
+
+        $newsPage = $cmsNewsTable->getNewsById($id);
+
+        if (empty($newsPage)) {
+            throw new Zend_Controller_Router_Exception('No news is found with id: ' . $id, 404);
+        }
+
+        $this->view->news = $newsPage;
+
+        $flashMessenger = $this->getHelper('FlashMessenger');
+
+        $systemMessages = array(
+            'success' => $flashMessenger->getMessages('success'),
+            'errors' => $flashMessenger->getMessages('errors'),
+        );
+
+        $form = new Application_Form_Admin_NewsEdit();
+
+        //default form data
+        $form->populate($newsPage);
+
+        if ($request->isPost() && $request->getPost('task') === 'update') {
+
+            try {
+
+                //check form is valid
+                if (!$form->isValid($request->getPost())) {
+                    throw new Application_Model_Exception_InvalidInput('Invalid data was sent for news');
+                }
+                //ukoliko je validna forma
+                //get form data
+                $formData = $form->getValues(); //filtrirani i validirani podaci
+
+                unset($formData['news_main_photo']);
+
+
+                if ($form->getElement('news_main_photo')->isUploaded()) {
+                    //photo is uploaded
+
+                    $fileInfos = $form->getElement('news_main_photo')->getFileInfo('news_main_photo');
+                    $fileInfo = $fileInfos['news_main_photo'];
+
+
+                    try {
+                        //open uploaded photo in temporary directory
+                        $newsPhoto = Intervention\Image\ImageManagerStatic::make($fileInfo['tmp_name']);
+
+                        //						$newsPhoto->fit(600, 400);
+                        $newsPhoto->fit(600, 400);
+
+                        $newsPhoto->save(PUBLIC_PATH . '/uploads/news-main-photos/' . $newsId . '.jpg');
+                    } catch (Exception $ex) {
+                        
+                        throw new Application_Model_Exception_InvalidInput('Error occured during image processing');
+
+                    }
+                    //$fileInfo = $_FILES['index_slide_photo'];
+                }
+
+
+
+                //radimo update postojeceg zapisa u tabeli
+                $cmsNewsTable->updateNews($newsPage['id'], $formData);
+
+
+                // do actual task
+                //save to database etc
+                //set system message
+                $flashMessenger->addMessage('News has been updated', 'success');
+
+                //redirect to same or another page po nasoj ideji bacamo na stranicu gde su svi newsi
+                $redirector = $this->getHelper('Redirector');
+                $redirector->setExit(true)
+                        ->gotoRoute(array(
+                            'controller' => 'admin_news',
+                            'action' => 'index'
+                                ), 'default', true);
+            } catch (Application_Model_Exception_InvalidInput $ex) {
+                $systemMessages['errors'][] = $ex->getMessage();
+            }
+        }
+
+        $this->view->systemMessages = $systemMessages;
+        $this->view->form = $form;
+    }
 
     public function deleteAction() {
 
@@ -242,9 +302,8 @@ class Admin_NewsController extends Zend_Controller_Action {
                         'action' => 'index'
                             ), 'default', true);
         }
-        
+
         $this->view->systemMessages = $systemMessages;
-        
     }
 
 }

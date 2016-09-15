@@ -25,12 +25,12 @@ $form->setElementDecorators(array('ViewHelper'));
             </div>
             <div class="panel-body">
 
-                <form class="form-horizontal" method="post" action="">
+                <form class="form-horizontal" method="post" action="" enctype="multipart/form-data">
                     <input type="hidden" name="task" value="update">
                     <fieldset>
 
                         <!-- Form Name -->
-                        <legend>Add news</legend>
+                        <legend>Edit news</legend>
 
                         <!-- Text input-->
                         <div class="form-group">
@@ -55,7 +55,7 @@ $form->setElementDecorators(array('ViewHelper'));
                             </div>
                         </div>
 
-                        
+
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="tags">Tags</label>  
@@ -105,8 +105,31 @@ $form->setElementDecorators(array('ViewHelper'));
                                 <?php } ?>
                             </div>
                         </div>
-
                         
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="news_main_photo">Photo</label>
+                            <div class="col-md-4">
+                                <div>
+                                        <a href="#" class="thumbnail">
+                                                <img src="<?php echo $this->newsImgUrl($this->news);?>">
+                                        </a>
+                                </div>
+
+                                <input type="file" name="news_main_photo" id="news_main_photo" class="form-control input-md">
+                            </div>
+
+                            <div class="col-md-4">
+                                <?php if ($form->getElement('news_main_photo')->hasErrors()) { ?>
+                                    <div class="has-error">
+                                        <?php foreach ($form->getElement('news_main_photo')->getMessages() as $message) { ?>
+                                            <p class="help-block"><?php echo $this->escape($message); ?></p>
+                                        <?php } ?>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                        </div>
+
+
                         <!-- Textarea input-->
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="title">Page Body</label>  
@@ -123,6 +146,8 @@ $form->setElementDecorators(array('ViewHelper'));
                                 <?php } ?>
                             </div>
                         </div>
+
+                        
                         <div class="form-group">
                             <div class="col-md-2"></div>
                             <div class="col-md-8" style="text-align: center;">
@@ -139,10 +164,10 @@ $form->setElementDecorators(array('ViewHelper'));
 
                         <!-- Button (Double) -->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="new_news_cancel"></label>
+                            <label class="col-md-4 control-label" for="new_sitemapPage_cancel"></label>
                             <div class="col-md-8 text-right">
-                                <a href="<?php echo $this->url(array('controller' => 'admin_news', 'action' => 'index'), 'default', true); ?>" id="new_news_cancel" name="new_news_cancel" class="btn btn-default">Cancel</a>
-                                <button type="submit" id="new_news_submit" name="new_news_submit" class="btn btn-success">Save</button>
+                                <a href="<?php echo $this->url(array('controller' => 'admin_news', 'action' => 'index', 'id' => $this->parentId), 'default', true); ?>" id="new_sitemapPage_cancel" name="new_sitemapPage_cancel" class="btn btn-default">Cancel</a>
+                                <button type="submit" id="new_sitemapPage_submit" name="new_sitemapPage_submit" class="btn btn-success">Save</button>
                             </div>
                         </div>
 

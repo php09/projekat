@@ -23,7 +23,7 @@ date_default_timezone_set('GMT');
                 <div class="col-sm-6 col-md-4">
                     <figure class="newsItem">
                         <div class="imgNews">
-                            <img class="img-responsive" src="/front/img/news_car.jpg" alt=""/>
+                            <img width="330" height="186" class="img-responsive" src="<?php echo $this->newsImgUrl($individualNews) ? $this->newsImgUrl($individualNews) : "/front/img/news_car.jpg" ;?>" alt=""/>
                             <div class="hoverNews text-center">
                                 <a href="#"><span class="fa fa-facebook" aria-hidden="true"></span></a>
                                 <a href="#"><span class="fa fa-google-plus" aria-hidden="true"></span></a>
@@ -32,7 +32,7 @@ date_default_timezone_set('GMT');
                         </div>
 
                         <figcaption>
-                            <a href="#"><h4><?php echo $individualNews['title'];?></h4></a>
+                            <a href="<?php echo $this->newsUrl($individualNews) ;?>"><h4><?php echo $individualNews['title'];?></h4></a>
                             <button type="button" class="btn items"><?php echo date('d F Y' , strtotime($individualNews['date_posted'])) ;?></button>
                             <button type="button" class="btn items">Add comment</button>
                             <p><?php echo substr(strip_tags($individualNews['body']), 0, 100) . "...";?></p>
