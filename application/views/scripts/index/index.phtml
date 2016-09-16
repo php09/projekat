@@ -357,10 +357,14 @@
                     <div class="slider"><!-- The slider -->
                         <div><!-- A mandatory div used by the slider -->
                             <!-- Each div below is considered a slide -->
+                            <?php 
+                            date_default_timezone_set('GMT');
+                            ?>
+                            <?php foreach($this->news as $individualNews) { ?>
                             <div>
                                 <figure class="newsItem">
                                     <div class="imgNews">
-                                        <img class="img-responsive" src="front/img/news_car.jpg" alt=""/>
+                                        <img class="img-responsive" src="<?php echo $this->newsImgUrl($individualNews) ;?>" alt=""/>
                                         <div class="hoverNews text-center">
                                             <a href="#"><span class="fa fa-facebook" aria-hidden="true"></span></a>
                                             <a href="#"><span class="fa fa-google-plus" aria-hidden="true"></span></a>
@@ -369,17 +373,18 @@
                                     </div>
 
                                     <figcaption>
-                                        <a href="#"><h4>READY FOR TRACK DAY</h4></a>
-                                        <button type="button" class="btn items">25 April 2015</button>
+                                        <a href="<?php echo $this->newsUrl($individualNews) ;?>"><h4><?php echo $this->escape($individualNews['title']);?></h4></a>
+                                        <button type="button" class="btn items"><?php echo date('d F Y' , strtotime($individualNews['date_posted'])) ;?></button>
                                         <button type="button" class="btn items">Add comment</button>
-                                        <p>Ea ullum liber aperiri mi, impetus ate philosophia ad duo, quem regione ne ius.
-                                            Vis quis lobortis dissentias ex, in du aft philosophia, malis necessitatibus no mei. 
-                                            Volumus sensibus qui ex, eum duis doming ad.</p>
+                                        <p>
+                                            <?php echo substr(strip_tags($individualNews['body']), 0, 100) . "...";?>
+                                        </p>
 
                                     </figcaption>
                                 </figure>
                             </div>
-                            <div>
+                            <?php } ?>
+<!--                            <div>
                                 <figure class="newsItem">
                                     <div class="imgNews">
                                         <img class="img-responsive" src="front/img/news_car.jpg" alt=""/>
@@ -476,7 +481,7 @@
                                         <p>Ea ullum liber aperiri mi, impetus ate philosophia ad duo, quem</p>
                                     </figcaption>
                                 </figure>
-                            </div>
+                            </div>-->
                         </div>
 
                     </div>
@@ -513,21 +518,24 @@
     <section class="pumpOptions">
         <div class="container">
             <div class="row">
+                <?php foreach($this->services as $service) { ?>
                 <div class="col-sm-6 col-md-3">
                     <article class="part center-block">
-
                         <figure>
-                            <img class="center-block" src="front/img/devices_icon.png" alt=""/>
+                            <img 
+                                class="center-block"
+                                src="<?php echo $this->baseUrl('/uploads/filemanager/services-icons/' . $service['icon']) ;?>" 
+                                alt=""
+                            />
                             <figcaption class="text-center">
-                                <a href="#"><h3>Devices</h3></a>
-                                <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
-                                    Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney 
-                                    College in Virginia, looked up one of the more obscure Latin words.</p>
+                                <a href="#"><h3><?php echo $this->escape($service['title']);?></h3></a>
+                                <p><?php echo $this->escape($service['description']);?></p>
                             </figcaption>
                         </figure>
                     </article>
                 </div>
-                <div class="col-sm-6 col-md-3">
+                <?php } ?>
+<!--                <div class="col-sm-6 col-md-3">
                     <article class="part center-block">
 
                         <figure>
@@ -568,7 +576,7 @@
                             </figcaption>
                         </figure>
                     </article>
-                </div>
+                </div>-->
             </div>
         </div>
     </section>

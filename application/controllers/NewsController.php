@@ -23,7 +23,7 @@ class NewsController extends Zend_Controller_Action {
                 ));
         
         if(empty($news)) {
-            throw new Zend_Controller_Router_Exception('No news was found with id: ' . $id , 404);
+            throw new Zend_Controller_Router_Exception('No news were found.' , 404);
         }
         
         $this->view->news = $news;
