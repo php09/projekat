@@ -26,5 +26,76 @@ $this instanceof Zend_View;
             </div
         </div>
     </section>
+    
+    <section class="pumpRideAboutUs text-center">
+        <h3>Pump your ride</h3>
+    </section>
+    
+    <section class="pumpOptions">
+                <div class="container">
+                    <div class="row">
+                        <?php foreach($this->services as $service) { ?>
+                        <div class="col-sm-6 col-md-3">
+			    <article class="part center-block">
+				<figure>
+				    <img 
+                                        class="center-block"
+                                        src="<?php echo $this->baseUrl('/uploads/filemanager/services-icons/' . $service['icon']) ;?>" 
+                                        alt=""
+                                    />
+				    <figcaption class="text-center">
+					<a href="#"><h3><?php echo $this->escape($service['title']);?></h3></a>
+					<p><?php echo $this->escape($service['description']);?></p>
+				    </figcaption>
+				</figure>
+			    </article>
+			</div>
+                        <?php } ?>
+<!--                        <div class="col-sm-6 col-md-3">
+			    <article class="part center-block">
+
+				<figure>
+				    <img alt="" src="img/chip_icon.png" class="center-block">
+				    <figcaption class="text-center">
+					<a href="#"><h3>Devices</h3></a>
+					<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
+					    Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney 
+					    College in Virginia, looked up one of the more obscure Latin words.</p>
+				    </figcaption>
+				</figure>
+			    </article>
+			</div>
+                        <div class="col-sm-6 col-md-3">
+			    <article class="part center-block">
+
+				<figure>
+				    <img alt="" src="img/sock_icon.png" class="center-block">
+				    <figcaption class="text-center">
+					<a href="#"><h3>Devices</h3></a>
+					<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
+					    Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney 
+					    College in Virginia, looked up one of the more obscure Latin words.</p>
+				    </figcaption>
+				</figure>
+			    </article>
+			</div>
+                        <div class="col-sm-6 col-md-3">
+			    <article class="part center-block">
+
+				<figure>
+				    <img alt="" src="img/wheels_icon.png" class="center-block">
+				    <figcaption class="text-center">
+					<a href="#"><h3>Devices</h3></a>
+					<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
+					    Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney 
+					    College in Virginia, looked up one of the more obscure Latin words.</p>
+				    </figcaption>
+				</figure>
+			    </article>
+			</div>-->
+                    </div>
+                </div>
+            </section>
+    
 </main>
 

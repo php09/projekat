@@ -46,6 +46,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                         'ContactUsPage' => array(
                             'title' => 'Contact us',
                             'subtypes' => array()
+                        ),
+                        'ServicesPage' => array(
+                            'title' => 'Services',
+                            'subtypes' => array()
                         )
                     
                         
@@ -59,7 +63,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                         'SupportPage' => 1,
                         'CataloguePage' => 1,
                         'AboutusPage' => 1,
-                        'ContactUsPage' => 1
+                        'ContactUsPage' => 1,
+                        'ServicesPage' => 1
 		);
 		
 		Zend_Registry::set('sitemapPageTypes', $sitemapPageTypes);

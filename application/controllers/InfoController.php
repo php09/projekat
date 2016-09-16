@@ -30,6 +30,20 @@ class InfoController extends Zend_Controller_Action{
         
         $this->view->sitemapPage = $sitemapPage[0];
         
+        $cmsServicesDbTable = new Application_Model_DbTable_CmsServices();
+        $services = $cmsServicesDbTable->search(array(
+            'filters' => array(
+                'status' => Application_Model_DbTable_CmsServices::STATUS_ENABLED
+            ),
+            'orders' => array(
+                'order_number' => 'ASC'
+            ),
+            'limit' => 4
+        ));
+        $this->view->services = $services;
+        
+        
+        
     }
     
     public function contactusAction() {
