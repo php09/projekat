@@ -50,6 +50,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                         'ServicesPage' => array(
                             'title' => 'Services',
                             'subtypes' => array()
+                        ),
+                        'ProductPage' => array(
+                            'title' => 'Product',
+                            'subtypes' => array()
                         )
                     
                         
@@ -64,7 +68,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                         'CataloguePage' => 1,
                         'AboutusPage' => 1,
                         'ContactUsPage' => 1,
-                        'ServicesPage' => 1
+                        'ServicesPage' => 1,
+                        'ProductPage' => 1
 		);
 		
 		Zend_Registry::set('sitemapPageTypes', $sitemapPageTypes);

@@ -1,8 +1,8 @@
 <?php
-$this->headTitle('Catalogue');
+$this->headTitle('Products');
 ?>
 <div class="page-header">
-    <h1>Catalogue</h1>
+    <h1>Products</h1>
 </div>
 <div class="row">
     <div class="col-lg-12" id="system-messages-container">
@@ -14,15 +14,15 @@ $this->headTitle('Catalogue');
         <div class="panel panel-default">
             <div class="panel-heading text-right">
                 <div class="btn-group" role="group" aria-label="...">
-                  <button type="button" class="btn btn-default">Components</button>
-                  <button type="button" class="btn btn-default">Configurations</button>
-                   <button type="button" class="btn btn-default">Other</button>
-                 </div>
+                        <button type="button" class="btn btn-default">Components</button>
+                        <button type="button" class="btn btn-default">Configurations</button>
+                        <button type="button" class="btn btn-default">Other</button>
+                </div>
                 <div class="btn-group" role="group" aria-label="...">
                     <a 
-                        href="<?php echo $this->url(array('controller' => 'admin_catalogue', 'action' => 'add'), 'default', true); ?>"
+                        href="<?php echo $this->url(array('controller' => 'admin_products', 'action' => 'add'), 'default', true); ?>"
                         class="btn btn-default"
-                        ><i class="glyphicon glyphicon-plus"></i> Add catalogue</a>
+                        ><i class="glyphicon glyphicon-plus"></i> Add product</a>
                 </div>
             </div>
             <div class="panel-body">
@@ -32,40 +32,40 @@ $this->headTitle('Catalogue');
                         <tr>
                             <th class="text-center">Status</th>
                             <th>ID</th>
-                            <th>Category</th>
                             <th>Title</th>
-                            <th>Date</th>
-                            <th>Author</th>
+                            <th>Type</th>
+                            <th>Vendor</th>
+                            <th>Model</th>
                             <th class="text-center">#</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-//                        var_dump($this->catalogue);
-                        foreach ($this->catalogue as $individualCatalogue) {
-                            if ($individualCatalogue['status'] == Application_Model_DbTable_CmsCatalogue::STATUS_DISABLED) {
+//                        var_dump($this->products);
+                        foreach ($this->products as $individualNews) {
+                            if ($individualNews['status'] == Application_Model_DbTable_CmsProducts::STATUS_DISABLED) {
                                 ?>
-                                <tr data-catalogue-id="<?php echo $this->escape($individualCatalogue['id']); ?>" class="danger">
-                                    <td><?php echo $this->escape($individualCatalogue['id']); ?></td>
+                                <tr data-products-id="<?php echo $this->escape($individualNews['id']); ?>" class="danger">
+                                    <td><?php echo $this->escape($individualNews['id']); ?></td>
                                     <td class="text-center"><span class="badge alert-danger" title="disabled"><i class="glyphicon glyphicon-remove"></i></span></td>
-                                    <td><?php echo $this->escape($individualCatalogue['id']); ?></td>
-                                    <td><?php echo $this->escape($individualCatalogue['category']); ?></td>
-                                    <td><?php echo $this->escape($individualCatalogue['title']); ?></td>
-                                    <td><?php echo $this->escape($individualCatalogue['date_posted']); ?></td>
-                                    <td><?php echo $this->escape($individualCatalogue['username']); ?></td>
+                                    <td><?php echo $this->escape($individualNews['id']); ?></td>
+                                    <td><?php echo $this->escape($individualNews['category']); ?></td>
+                                    <td><?php echo $this->escape($individualNews['title']); ?></td>
+                                    <td><?php echo $this->escape($individualNews['date_posted']); ?></td>
+                                    <td><?php echo $this->escape($individualNews['username']); ?></td>
                                     <td class="text-center">
                                         <div class="btn-group btn-group-sm" role="group" aria-label="...">
                                             <a 
                                                 target="_blank"
-                                                href="<?php echo $this->catalogueUrl($individualCatalogue) ;?>"
+                                                href="<?php echo $this->productsUrl($individualNews) ;?>"
                                                 type="button" class="btn btn-default" title="preview">
                                                 <i class="glyphicon glyphicon-eye-open"></i>
                                             </a>
                                             <a
-                                                href="<?php echo $this->url(array('controller' => 'admin_catalogue', 'action' => 'edit', 'id' => $individualCatalogue['id']), 'default', true); ?>"
+                                                href="<?php echo $this->url(array('controller' => 'admin_products', 'action' => 'edit', 'id' => $individualNews['id']), 'default', true); ?>"
                                                 type="button" class="btn btn-default" title="edit"><i class="glyphicon glyphicon-pencil"></i></a>
-                                            <button data-catalogue-id="<?php echo $this->escape($individualCatalogue['id']); ?>" data-action="enable" type="button" class="btn btn-default" title="enable"><i class="glyphicon glyphicon-ok"></i></button>
-                                            <button data-catalogue-id="<?php echo $this->escape($individualCatalogue['id']); ?>" data-action="delete" type="button" class="btn btn-default" title="delete"><i class="glyphicon glyphicon-trash"></i></button>
+                                            <button data-products-id="<?php echo $this->escape($individualNews['id']); ?>" data-action="enable" type="button" class="btn btn-default" title="enable"><i class="glyphicon glyphicon-ok"></i></button>
+                                            <button data-products-id="<?php echo $this->escape($individualNews['id']); ?>" data-action="delete" type="button" class="btn btn-default" title="delete"><i class="glyphicon glyphicon-trash"></i></button>
 
                                         </div>
                                     </td>
@@ -73,26 +73,26 @@ $this->headTitle('Catalogue');
                                 <?php
                             } else {
                                 ?>
-                                <tr data-catalogue-id="<?php echo $this->escape($individualCatalogue['id']); ?>">
+                                <tr data-products-id="<?php echo $this->escape($individualNews['id']); ?>">
                                     <td class="text-center"><span class="badge alert-success" title="enabled"><i class="glyphicon glyphicon-ok"></i></span></td>
-                                    <td><?php echo $this->escape($individualCatalogue['id']); ?></td>
-                                    <td><?php echo $this->escape($individualCatalogue['category']); ?></td>
-                                    <td><?php echo $this->escape($individualCatalogue['title']); ?></td>
-                                    <td><?php echo $this->escape($individualCatalogue['date_posted']); ?></td>
-                                    <td><?php echo $this->escape($individualCatalogue['username']); ?></td>
+                                    <td><?php echo $this->escape($individualNews['id']); ?></td>
+                                    <td><?php echo $this->escape($individualNews['category']); ?></td>
+                                    <td><?php echo $this->escape($individualNews['title']); ?></td>
+                                    <td><?php echo $this->escape($individualNews['date_posted']); ?></td>
+                                    <td><?php echo $this->escape($individualNews['username']); ?></td>
                                     <td class="text-center">
                                         <div class="btn-group btn-group-sm" role="group" aria-label="...">
                                             <a 
                                                 target="_blank"
-                                                href="<?php echo $this->catalogueUrl($individualCatalogue) ;?>"
+                                                href="<?php echo $this->productsUrl($individualNews) ;?>"
                                                 type="button" class="btn btn-default" title="preview">
                                                 <i class="glyphicon glyphicon-eye-open"></i>
                                             </a>
                                             <a
-                                                href="<?php echo $this->url(array('controller' => 'admin_catalogue', 'action' => 'edit', 'id' => $individualCatalogue['id']), 'default', true); ?>"
+                                                href="<?php echo $this->url(array('controller' => 'admin_products', 'action' => 'edit', 'id' => $individualNews['id']), 'default', true); ?>"
                                                 type="button" class="btn btn-default" title="edit"><i class="glyphicon glyphicon-pencil"></i></a>
-                                            <button data-catalogue-id="<?php echo $this->escape($individualCatalogue['id']); ?>" data-action="disable" type="button" class="btn btn-default" title="disabled"><i class="glyphicon glyphicon-remove"></i></button>
-                                            <button data-catalogue-id="<?php echo $this->escape($individualCatalogue['id']); ?>" data-action="delete" type="button" class="btn btn-default" title="delete"><i class="glyphicon glyphicon-trash"></i></button>
+                                            <button data-products-id="<?php echo $this->escape($individualNews['id']); ?>" data-action="disable" type="button" class="btn btn-default" title="disabled"><i class="glyphicon glyphicon-remove"></i></button>
+                                            <button data-products-id="<?php echo $this->escape($individualNews['id']); ?>" data-action="delete" type="button" class="btn btn-default" title="delete"><i class="glyphicon glyphicon-trash"></i></button>
 
 
                                         </div>
@@ -115,17 +115,17 @@ $this->headTitle('Catalogue');
         </div>
     </div>
 </div>
-<form method="post" action="<?php echo $this->url(array('controller' => 'admin_catalogue', 'action' => 'delete'), 'default', true); ?>" id="delete-warning-dialog" class="modal fade" tabindex="-1" role="dialog">
+<form method="post" action="<?php echo $this->url(array('controller' => 'admin_products', 'action' => 'delete'), 'default', true); ?>" id="delete-warning-dialog" class="modal fade" tabindex="-1" role="dialog">
     <input type="hidden" name="task" value="delete">
     <input type="hidden" name="id" value="">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Delete catalogue</h4>
+                <h4 class="modal-title">Delete products</h4>
             </div>
             <div class="modal-body">
-                <p>Are you sure you want to delete catalogue?</p>
+                <p>Are you sure you want to delete products?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -135,17 +135,17 @@ $this->headTitle('Catalogue');
     </div><!-- /.modal-dialog -->
 </form><!-- /.modal -->
 
-<form method="post" action="<?php echo $this->url(array('controller' => 'admin_catalogue', 'action' => 'disable'), 'default', true); ?>" id="disable-warning-dialog" class="modal fade" tabindex="-1" role="dialog">
+<form method="post" action="<?php echo $this->url(array('controller' => 'admin_products', 'action' => 'disable'), 'default', true); ?>" id="disable-warning-dialog" class="modal fade" tabindex="-1" role="dialog">
     <input type="hidden" name="task" value="disable">
     <input type="hidden" name="id" value="">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Disable catalogue</h4>
+                <h4 class="modal-title">Disable products</h4>
             </div>
             <div class="modal-body">
-                <p>Are you sure you want to disable catalogue?</p>
+                <p>Are you sure you want to disable products?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -155,17 +155,17 @@ $this->headTitle('Catalogue');
     </div><!-- /.modal-dialog -->
 </form><!-- /.modal -->
 
-<form method="post" action="<?php echo $this->url(array('controller' => 'admin_catalogue', 'action' => 'enable'), 'default', true); ?>" id="enable-warning-dialog" class="modal fade" tabindex="-1" role="dialog">
+<form method="post" action="<?php echo $this->url(array('controller' => 'admin_products', 'action' => 'enable'), 'default', true); ?>" id="enable-warning-dialog" class="modal fade" tabindex="-1" role="dialog">
     <input type="hidden" name="task" value="enable">
     <input type="hidden" name="id" value="">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Enable catalogue</h4>
+                <h4 class="modal-title">Enable products</h4>
             </div>
             <div class="modal-body">
-                <p>Are you sure you want to enable catalogue?</p>
+                <p>Are you sure you want to enable products?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -197,13 +197,13 @@ $this->headTitle('Catalogue');
         var target = $(this).is("[data-action='delete']") ? $(this) : $(this).closest("[data-action='delete']");
 
 
-        var catalogueId = target.attr('data-catalogue-id');
-        var catalogueInfo = target.attr('data-catalogueInfo');
-//        var catalogueId = target.data("catalogueId");
-//        alert(catalogueId);
+        var productsId = target.attr('data-products-id');
+        var productsInfo = target.attr('data-productsInfo');
+//        var productsId = target.data("productsId");
+//        alert(productsId);
 //        $('#delete-warning-dialog').find('[name = "id"]'). //alternativni nacini
-        $('#delete-warning-dialog [name = "id"] ').val(catalogueId); //alternativni nacin
-        $('#delete-catalogue').text(catalogueInfo);
+        $('#delete-warning-dialog [name = "id"] ').val(productsId); //alternativni nacin
+        $('#delete-products').text(productsInfo);
         $('#delete-warning-dialog').modal('show');
 
     });
@@ -213,13 +213,13 @@ $this->headTitle('Catalogue');
         e.stopPropagation();
 
         var target = $(this).is("[data-action='disable']") ? $(this) : $(this).closest("[data-action='disable']");
-        var catalogueId = target.attr('data-catalogue-id');
-        var catalogueInfo = target.attr('data-catalogueInfo');
-//        var catalogueId = target.data("catalogueId");
-//        alert(catalogueId);
+        var productsId = target.attr('data-products-id');
+        var productsInfo = target.attr('data-productsInfo');
+//        var productsId = target.data("productsId");
+//        alert(productsId);
 //        $('#delete-warning-dialog').find('[name = "id"]'). //alternativni nacini
-        $('#disable-warning-dialog [name = "id"] ').val(catalogueId) //alternativni nacin
-        $('#disable-catalogue').text(catalogueInfo);
+        $('#disable-warning-dialog [name = "id"] ').val(productsId) //alternativni nacin
+        $('#disable-products').text(productsInfo);
         $('#disable-warning-dialog').modal('show');
 
     });
@@ -230,13 +230,13 @@ $this->headTitle('Catalogue');
         e.stopPropagation();
 
         var target = $(this).is("[data-action='enable']") ? $(this) : $(this).closest("[data-action='enable']");
-        var catalogueId = target.attr('data-catalogue-id');
-        var catalogueInfo = target.attr('data-catalogueInfo');
+        var productsId = target.attr('data-products-id');
+        var productsInfo = target.attr('data-productsInfo');
 
-//        alert(catalogueId);
+//        alert(productsId);
 //        $('#enable-warning-dialog').find('[name = "id"]'). //alternativni nacini
-        $('#enable-warning-dialog [name = "id"] ').val(catalogueId) //alternativni nacin
-        $('#enable-catalogue').text(catalogueInfo);
+        $('#enable-warning-dialog [name = "id"] ').val(productsId) //alternativni nacin
+        $('#enable-products').text(productsInfo);
         $('#enable-warning-dialog').modal('show');
 
     });
