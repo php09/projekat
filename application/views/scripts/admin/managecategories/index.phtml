@@ -1,0 +1,48 @@
+
+<div class="page-header">
+    <h1>Example page header <small>Subtext for header</small></h1>
+</div>
+
+<!--<div class="row">-->
+
+<div class="col-md-12">
+    <div class="panel with-nav-tabs panel-default">
+        <div class="panel-heading">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab1default" data-toggle="tab">Product types</a></li>
+                <li><a href="#tab2default" data-toggle="tab">Product characteristics</a></li>
+            </ul>
+
+            <div class="panel-body">
+                <div class="tab-content">
+
+                    <div class="tab-pane fade in active" id="tab1default">
+                        <h1>Product type manage form</h1>
+
+                        <ul class="list-group">
+                            <?php foreach ($this->types as $type) { ?>
+                            <li class="list-group-item"><?php echo $this->escape($type['name']);?></li>
+                            <?php } ?>
+                        </ul>
+
+                        <form>
+
+                        </form>
+                    </div>
+
+                    <div class="tab-pane fade" id="tab2default">
+                        <h1>Product characteristic manage form</h1>
+                        <form>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!--</div>-->
