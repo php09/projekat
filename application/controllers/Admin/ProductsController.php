@@ -20,9 +20,9 @@ class Admin_ProductsController extends Zend_Controller_Action {
     public function deleteAction() {
         
     }
-    
+
     public function editAction() {
         
     }
-    
+       
 }

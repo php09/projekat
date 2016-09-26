@@ -18,21 +18,33 @@
 
                     <div class="tab-pane fade in active" id="tab1default">
                         <h1>Product type manage form</h1>
+                        <div class="row">
+                            <div class="col-md-1">
+                                <form method="post" action="">
+                                        
+                                    <div id="producttypes">
 
-                        <ul class="list-group">
-                            <?php foreach ($this->types as $type) { ?>
-                            <li class="list-group-item"><?php echo $this->escape($type['name']);?></li>
-                            <?php } ?>
-                        </ul>
+                                    </div>
+                                    <input type="hidden" name="task" value="categorydelete">
+                                    <input id="btndelete" type="submit" value="delete">
+                                </form>
+                            </div>
 
-                        <form>
+                            <div class="col-md-3">
+                                <form method="post" action="">
+                                    <input type="hidden" name="task" value="categoryinseert">
+                                    <input type="text" name="name" value="" placeholder="Enter product category">
+                                    <input id="btninsert" type="submit" value="insert">
 
-                        </form>
+                                </form>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="tab-pane fade" id="tab2default">
                         <h1>Product characteristic manage form</h1>
                         <form>
+
 
                         </form>
                     </div>
@@ -45,4 +57,44 @@
     </div>
 </div>
 
-<!--</div>-->
+<script>
+<?php $this->inlineScript()->captureStart(); ?>
+
+    $.ajax({
+        url: '<?php echo $this->url(array('controller' => 'admin_managecategories', 'action' => 'producttypes'), 'default', true);?>'
+    }).done(function (data) {
+        $('#producttypes').html(data);
+    }).fail(function () {
+        alert("Error while loading dashboard product types.");
+    });
+    
+    
+    $("#btndelete").on("submit", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+         
+       $.ajax({
+                url: '<?php echo $this->url(array('controller' => 'admin_managecategories', 'action' => 'producttypesdelete'), 'default', true) ?>'
+            }).done(function (data) {
+//                $('#producttypes').html(data);
+            }).fail(function () {
+                alert("Error while loading dashboard product types.");
+            })
+    });
+    
+    $("#btninsert").on("submit", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        $.ajax({
+                url: '<?php echo $this->url(array('controller' => 'admin_managecategories', 'action' => 'producttypesinsert'), 'default', true) ?>'
+            }).done(function (data) {
+//                $('#producttypes').html(data);
+            }).fail(function () {
+                alert("Error while loading dashboard product types.");
+            })
+    });
+    
+
+<?php $this->inlineScript()->captureEnd(); ?>
+</script>
