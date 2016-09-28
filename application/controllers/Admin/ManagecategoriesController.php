@@ -5,7 +5,6 @@ class Admin_ManagecategoriesController extends Zend_Controller_Action
     
     public function indexAction()
     {
-        
         //placeholder
         $characteristicId = 1;
         
@@ -41,29 +40,121 @@ class Admin_ManagecategoriesController extends Zend_Controller_Action
     }
     
     public function producttypesdeleteAction() {
-        
-        Zend_Layout::getMvcInstance()->disableLayout();
-
         $request = $this->getRequest();
+            
+            if(!$request->isPost() || $request->getPost('task') != 'typeinsert' ) {
+                
+                $redirector = $this->getHelper('Redirector');
+                $redirector->setExit(true)
+                            ->gotoRoute(array(
+                                'controller' => 'admin_managecategories',
+                                'action' => 'index'
+                                ), 'default', true);
+            }
+            
+            $flashMessenger = $this->getHelper('FlashMessenger');
+            
+            try {
+                
+            $value = $request->getPost("type");
+            
+//            if($id <= 0) {
+//                
+//                throw new Application_Model_Exception_InvalidInput("Invalid member id: " . $id );
+//                
+//            }
+            
+            $cmsTypeTable = new Application_Model_DbTable_CmsTypes();
+    
+                $cmsTypeTable->insertType($value);
+                
+                
+                $flashMessenger->addMessage("Member " . $member["first_name"] . " " . $member["last_name"] . " has been enabled." , "success");
+                
+                $redirector = $this->getHelper('Redirector');
+                $redirector->setExit(true)
+                            ->gotoRoute(array(
+                                'controller' => 'admin_managecategories',
+                                'action' => 'index'
+                                ), 'default', true);
+
+            } catch (Application_Model_Exception_InvalidInput $ex) {
+
+                $flashMessenger->addMessage($ex->getMessage());
+                
+                $redirector = $this->getHelper('Redirector');
+                $redirector->setExit(true)
+                            ->gotoRoute(array(
+                                'controller' => 'admin_managecategories',
+                                'action' => 'index'
+                                ), 'default', true);
+                
+            }
         
-        $id = $request->getParam("types");
-        
-        $table = new Zend_Db_Table("cms_product_types");
-        $table->delete("id = " . $id);
         
     }
     
     public function producttypesinsertAction() {
-        
-        Zend_Layout::getMvcInstance()->disableLayout();
 
+//        $typesTable = new Application_Model_DbTable_CmsTypes();
+//        $typesTable->insertType("test");
+//        echo "<pre>"; 
+//        var_dump($this->getRequest()->getParams());
+//        die();
+        
         $request = $this->getRequest();
+            
+            if(!$request->isPost() || $request->getPost('task') != 'typeinsert' ) {
+                
+                $redirector = $this->getHelper('Redirector');
+                $redirector->setExit(true)
+                            ->gotoRoute(array(
+                                'controller' => 'admin_managecategories',
+                                'action' => 'index'
+                                ), 'default', true);
+            }
+            
+            $flashMessenger = $this->getHelper('FlashMessenger');
+            
+            try {
+                
+            $value = $request->getPost("type");
+            
+//            if($id <= 0) {
+//                
+//                throw new Application_Model_Exception_InvalidInput("Invalid member id: " . $id );
+//                
+//            }
+            
+            $cmsTypeTable = new Application_Model_DbTable_CmsTypes();
+    
+                $cmsTypeTable->insertType($value);
+                
+                
+                $flashMessenger->addMessage("Member " . $member["first_name"] . " " . $member["last_name"] . " has been enabled." , "success");
+                
+                $redirector = $this->getHelper('Redirector');
+                $redirector->setExit(true)
+                            ->gotoRoute(array(
+                                'controller' => 'admin_managecategories',
+                                'action' => 'index'
+                                ), 'default', true);
+
+            } catch (Application_Model_Exception_InvalidInput $ex) {
+
+                $flashMessenger->addMessage($ex->getMessage());
+                
+                $redirector = $this->getHelper('Redirector');
+                $redirector->setExit(true)
+                            ->gotoRoute(array(
+                                'controller' => 'admin_managecategories',
+                                'action' => 'index'
+                                ), 'default', true);
+                
+            }
         
-        $name = $request->getParam("name");
-        $request instanceof Zend_Controller_Request_Http;
         
-        $table = new Zend_Db_Table("cms_product_types");
-        $table->insert( array("name" => $name) );
+        
         
         
     }
