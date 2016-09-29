@@ -46,8 +46,9 @@ $form = new Application_Form_Admin_TypesAdd();
                                     
                                 
                                 <!-- PRODUCT TYPE FORM END -->
-                                
-                                
+                                <div class="form-actions">
+                                <button id="btndeletetype" class="btn btn-default">Delete type</button>
+                                </div>
                             </div>
 
                             <div class="col-md-3">
@@ -114,28 +115,32 @@ $form = new Application_Form_Admin_TypesAdd();
 	});
         
         
-        $('#btndelete').on('submit', function (e) {
-            e.preventDefault(); //stop manual form submit
 
-            $.ajax({
+        $("#btndeletetype").on("click", function(e) {
+        
+        $.ajax({
                     url: '<?php echo $this->url(array('controller' => 'admin_managecategories', 'action' => 'producttypesdelete'), 'default', true); ?>',
                     method: 'post',
                     data: {
                             task: 'typedelete',
-                            type: target.find('[name="selecttypes"]').val()
+                            type: $("#selecttypes").val()
                     }
 
             }).done(function (data) {
+//                console.log(data.type);
+                $.ajax({
+                        url: '<?php echo $this->url(array('controller' => 'admin_managecategories', 'action' => 'producttypes'), 'default', true);?>'
+                    }).done(function (data) {
+                        $('#producttypes').html(data);
+                    }).fail(function () {
+                            //error in communication with server
+                            alert('Error: Server returned error');
+                    }).always(function () {
 
-            }).fail(function () {
-                    //error in communication with server
-                    alert('Error: Server returned error');
-
-            }).always(function () {
-
+                    });
+                });
             });
-	});
-    
+
     
 <?php $this->inlineScript()->captureEnd(); ?>
 </script>

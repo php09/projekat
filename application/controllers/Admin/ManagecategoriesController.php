@@ -42,7 +42,7 @@ class Admin_ManagecategoriesController extends Zend_Controller_Action
     public function producttypesdeleteAction() {
         $request = $this->getRequest();
             
-            if(!$request->isPost() || $request->getPost('task') != 'typeinsert' ) {
+            if(!$request->isPost() || $request->getPost('task') != 'typedelete' ) {
                 
                 $redirector = $this->getHelper('Redirector');
                 $redirector->setExit(true)
@@ -66,17 +66,9 @@ class Admin_ManagecategoriesController extends Zend_Controller_Action
             
             $cmsTypeTable = new Application_Model_DbTable_CmsTypes();
     
-                $cmsTypeTable->insertType($value);
-                
-                
-                $flashMessenger->addMessage("Member " . $member["first_name"] . " " . $member["last_name"] . " has been enabled." , "success");
-                
-                $redirector = $this->getHelper('Redirector');
-                $redirector->setExit(true)
-                            ->gotoRoute(array(
-                                'controller' => 'admin_managecategories',
-                                'action' => 'index'
-                                ), 'default', true);
+            $cmsTypeTable->delete("id = " . $value);
+             
+             $this->getHelper("Json")->sendJson( array("status" => "successfully deleted product type"));
 
             } catch (Application_Model_Exception_InvalidInput $ex) {
 
@@ -157,6 +149,12 @@ class Admin_ManagecategoriesController extends Zend_Controller_Action
         
         
         
+    }
+    
+    
+    public function ajaxtestAction() {
+        $json = $this->getRequest()->getParams();
+        $this->getHelper("Json")->sendJson($json);
     }
     
     
