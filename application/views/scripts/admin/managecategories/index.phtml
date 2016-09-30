@@ -21,41 +21,30 @@ $form = new Application_Form_Admin_TypesAdd();
                     <div class="tab-pane fade in active" id="tab1default">
                         <h1>Product type manage form</h1>
                         <div class="row">
-                            <div class="col-md-1">
-                                
-                                <!-- PRODUCT TYPE FORM START -->
-                                
-                                <form method="post" name="type" action="<?php echo $this->url(array("controller" => "admin_managecategories", "action" => "producttypesdelete"), "default", true);?>">
-                                    <div id="producttypes">
-                                        
-                                    </div>
-                                    <div class="form-actions">
-                                        <input type="hidden" name="task" value="typedelete">
-                                        <button id="btndelete" type="submit" value="submit">Delete</button>
-                                    </div>
-                                </form>
-                                
-                                <form method="post" name="type" action="<?php echo $this->url(array("controller" => "admin_managecategories", "action" => "producttypesinsert"), "default", true);?>">
-                                    <div class="form-actions">
-                                        <input type="hidden" name="task" value="typeinsert">
-                                        <input type="text" name="type" value="">
-                                        <button id="btninsert" type="submit" value="submit">Submit</button>
-                                        
-                                    </div>
-                                </form>
-                                    
-                                
-                                <!-- PRODUCT TYPE FORM END -->
-                                <div class="form-actions">
-                                <button id="btndeletetype" class="btn btn-default">Delete type</button>
+                            <div class="col-md-2">
+                                <label>Product types</label>
+                                <div id="producttypes">
+
                                 </div>
+                                <div class="form-actions">
+                                    <button id="btndeletetype" class="btn btn-default">Delete type</button>
+                                </div>
+
+
+                                <!-- PRODUCT TYPE FORM END -->                                
+
+
                             </div>
 
                             <div class="col-md-3">
-                                
-                                
-                                
-                                
+                                <div class="form-actions">
+                                    <label for="typeinput">Insert product type</label>
+                                    <input id="typeinput" type="text" name="type" value="">
+                                    <button  class="btn btn-default" id="btninsert"  value="submit">Insert type</button>
+                                </div>
+
+
+
                             </div>
                         </div>
                     </div>
@@ -66,10 +55,10 @@ $form = new Application_Form_Admin_TypesAdd();
 
                             <!-- PRODUCT CHARACTERISTICS FORM START -->
 
-                            
-                            
+
+
                             <!-- PRODUCT CHARACTERISTICS FORM END -->
-                            
+
                         </form>
                     </div>
 
@@ -85,62 +74,90 @@ $form = new Application_Form_Admin_TypesAdd();
 <?php $this->inlineScript()->captureStart(); ?>
 
     $.ajax({
-        url: '<?php echo $this->url(array('controller' => 'admin_managecategories', 'action' => 'producttypes'), 'default', true);?>'
+        url: '<?php echo $this->url(array('controller' => 'admin_managecategories', 'action' => 'producttypes'), 'default', true); ?>'
     }).done(function (data) {
         $('#producttypes').html(data);
     }).fail(function () {
         alert("Error while loading dashboard product types.");
     });
-    
-    $('#btninsert').on('submit', function (e) {
-            e.preventDefault(); //stop manual form submit
+
+
+    $('#btninsert').on('click', function (e) {
+        e.preventDefault(); //stop manual form submit
+
+        $.ajax({
+            url: '<?php echo $this->url(array('controller' => 'admin_managecategories', 'action' => 'producttypesinsert'), 'default', true); ?>',
+            method: 'post',
+            data: {
+                task: 'typeinsert',
+                type: $("#typeinput").val()
+            }
+
+        }).done(function (data) {
 
             $.ajax({
-                    url: '<?php echo $this->url(array('controller' => 'admin_managecategories', 'action' => 'producttypesinsert'), 'default', true); ?>',
-                    method: 'post',
-                    data: {
-                            task: 'typeinsert',
-                            type: target.find('[name="type"]').val()
-                    }
-
+                url: '<?php echo $this->url(array('controller' => 'admin_managecategories', 'action' => 'producttypes'), 'default', true); ?>'
             }).done(function (data) {
-
+                $('#producttypes').html(data);
+                $("#typeinput").val('');
             }).fail(function () {
-                    //error in communication with server
-                    alert('Error: Server returned error');
-
+                //error in communication with server
+                alert('Error: Server returned error');
             }).always(function () {
 
             });
-	});
-        
-        
 
-        $("#btndeletetype").on("click", function(e) {
-        
+
+        }).fail(function () {
+            //error in communication with server 
+            alert('Error: Server returned error');
+
+
+        }).always(function () {
+
+        });
+    });
+
+
+
+    $("#btndeletetype").on("click", function (e) {
+
         $.ajax({
-                    url: '<?php echo $this->url(array('controller' => 'admin_managecategories', 'action' => 'producttypesdelete'), 'default', true); ?>',
-                    method: 'post',
-                    data: {
-                            task: 'typedelete',
-                            type: $("#selecttypes").val()
-                    }
+            url: '<?php echo $this->url(array('controller' => 'admin_managecategories', 'action' => 'producttypesdelete'), 'default', true); ?>',
+            method: 'post',
+            data: {
+                task: 'typedelete',
+                type: $("#selecttypes").val()
+            }
 
-            }).done(function (data) {
+        }).done(function (data) {
 //                console.log(data.type);
-                $.ajax({
-                        url: '<?php echo $this->url(array('controller' => 'admin_managecategories', 'action' => 'producttypes'), 'default', true);?>'
-                    }).done(function (data) {
-                        $('#producttypes').html(data);
-                    }).fail(function () {
-                            //error in communication with server
-                            alert('Error: Server returned error');
-                    }).always(function () {
+            $.ajax({
+                url: '<?php echo $this->url(array('controller' => 'admin_managecategories', 'action' => 'producttypes'), 'default', true); ?>'
+            }).done(function (data) {
+                $('#producttypes').html(data);
+            }).fail(function () {
+                //error in communication with server
+                alert('Error: Server returned error');
+            }).always(function () {
 
-                    });
-                });
             });
+        });
+    });
 
+
+
+    $("#typeinput").keyup(function (event) {
+        if (event.keyCode == 13) {
+            $("#btninsert").click();
+        }
+    });
     
+    $( document ).on("dblclick", "selecttypes", function (event) {
+            $("#btndeletetype").click();
+    });
+
+
+
 <?php $this->inlineScript()->captureEnd(); ?>
 </script>
